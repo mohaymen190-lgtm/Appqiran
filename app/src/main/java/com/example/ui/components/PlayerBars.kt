@@ -25,6 +25,10 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.Waves
+import androidx.compose.material.icons.filled.WaterDrop
+import androidx.compose.material.icons.filled.VolumeOff
+import com.example.model.AmbientSoundType
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -57,6 +61,7 @@ fun MiniPlayerBar(
     onNextClick: () -> Unit,
     onExpandClick: () -> Unit,
     onToggleFavorite: () -> Unit,
+    onToggleAmbientClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -122,6 +127,24 @@ fun MiniPlayerBar(
                         imageVector = Icons.Default.SkipNext,
                         contentDescription = "التالي",
                         tint = Color(0xFF8F9BB3),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
+                // Ambient Sound Mixing Quick Toggle (Waves / Rain / Off)
+                IconButton(
+                    onClick = onToggleAmbientClick,
+                    modifier = Modifier.size(34.dp).testTag("mini_ambient")
+                ) {
+                    Icon(
+                        imageVector = when (playerState.ambientSound) {
+                            AmbientSoundType.OCEAN -> Icons.Default.Waves
+                            AmbientSoundType.RAIN -> Icons.Default.WaterDrop
+                            AmbientSoundType.NONE -> Icons.Default.VolumeOff
+                            else -> Icons.Default.Waves
+                        },
+                        contentDescription = "خلط أصوات الطبيعة",
+                        tint = if (playerState.ambientSound != AmbientSoundType.NONE) Color(0xFF1DB954) else Color(0xFF8F9BB3),
                         modifier = Modifier.size(20.dp)
                     )
                 }

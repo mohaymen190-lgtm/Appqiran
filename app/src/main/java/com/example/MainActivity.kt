@@ -42,6 +42,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.data.QuranData
+import com.example.model.AmbientSoundType
 import com.example.ui.components.FullPlayerSheet
 import com.example.ui.components.MiniPlayerBar
 import com.example.ui.components.QuranAppHeader
@@ -114,7 +115,15 @@ class MainActivity : ComponentActivity() {
                                         onPlayPauseClick = { viewModel.togglePlayPause() },
                                         onNextClick = { viewModel.playNextSurah() },
                                         onExpandClick = { viewModel.setFullPlayerVisible(true) },
-                                        onToggleFavorite = { viewModel.toggleFavoriteCurrent() }
+                                        onToggleFavorite = { viewModel.toggleFavoriteCurrent() },
+                                        onToggleAmbientClick = {
+                                            val nextAmbient = when (playerState.ambientSound) {
+                                                AmbientSoundType.NONE -> AmbientSoundType.OCEAN
+                                                AmbientSoundType.OCEAN -> AmbientSoundType.RAIN
+                                                else -> AmbientSoundType.NONE
+                                            }
+                                            viewModel.toggleAmbientSound(nextAmbient)
+                                        }
                                     )
 
                                     QuranBottomNavigationBar(
