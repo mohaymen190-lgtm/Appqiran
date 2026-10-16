@@ -33,9 +33,13 @@ jobs:
 
       - name: Restore Keystore from base64 if needed
         run: |
-          if [ -f "debug.keystore.base64" ] && [ ! -f "debug.keystore" ]; then
+          mkdir -p ~/.android
+          if [ -f "debug.keystore.base64" ]; then
             echo "Decoding debug.keystore from base64..."
             base64 -d debug.keystore.base64 > debug.keystore
+            cp debug.keystore ~/.android/debug.keystore
+          elif [ -f "debug.keystore" ]; then
+            cp debug.keystore ~/.android/debug.keystore
           fi
 
       - name: Build Debug APK
