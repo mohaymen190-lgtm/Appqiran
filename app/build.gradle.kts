@@ -48,12 +48,6 @@ android {
         buildConfig = true
     }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
-
     dependenciesInfo {
         includeInApk = false
         includeInBundle = true
@@ -88,18 +82,10 @@ dependencies {
 
     implementation(libs.coil.compose)
 
-    implementation(libs.converter.moshi)
-
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
-
-    implementation(libs.logging.interceptor)
-    implementation(libs.moshi.kotlin)
-    implementation(libs.okhttp)
-    implementation(libs.retrofit)
 
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     "ksp"(libs.androidx.room.compiler)
-    "ksp"(libs.moshi.kotlin.codegen)
 }
